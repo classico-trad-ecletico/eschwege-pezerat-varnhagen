@@ -8,14 +8,15 @@
 # Global variables and setup {{{1
 # ================
 VPATH = _lib
-vpath %.yaml .:_spec
+vpath %.bib _bibliography
 vpath %.csl .:_csl
+vpath %.yaml .:_spec
 vpath default.% .:_lib
 vpath reference.% .:_lib
 
-DEFAULTS := defaults.yaml _biblio.bib
+DEFAULTS := defaults.yaml references.bib
 JEKYLL-VERSION := 4.2.0
-PANDOC-VERSION := 2.12
+PANDOC-VERSION := 2.14
 JEKYLL/PANDOC := docker run --rm -v "`pwd`:/srv/jekyll" \
 	-u "`id -u`:`id -g`" palazzo/jekyll-tufte:$(JEKYLL-VERSION)-$(PANDOC-VERSION)
 PANDOC/CROSSREF := docker run --rm -v "`pwd`:/data" \
@@ -38,7 +39,7 @@ PANDOC/LATEX := docker run --rm -v "`pwd`:/data" \
 .PHONY : _site
 _site : | _csl/chicago-fullnote-bibliography-with-ibid.csl
 	@$(JEKYLL/PANDOC) /bin/bash -c \
-	"chmod 777 /srv/jekyll && jekyll build"
+	"chmod 777 /srv/jekyll && jekyll build --future"
 
 _csl/%.csl : | _csl
 	@cd _csl && git checkout master -- $(@F)
@@ -59,7 +60,7 @@ serve : | _csl/chicago-fullnote-bibliography-with-ibid.csl
 	docker run --rm -v "`pwd`:/srv/jekyll" \
 		-p "4000:4000" -h "0.0.0.0:127.0.0.1" \
 		palazzo/jekyll-tufte:$(JEKYLL-VERSION)-$(PANDOC-VERSION) \
-		jekyll serve
+		jekyll serve --future
 
 .PHONY : clean
 clean :
