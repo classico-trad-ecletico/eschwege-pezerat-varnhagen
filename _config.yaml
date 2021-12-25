@@ -1,0 +1,39 @@
+title: "Três engenheiros estrangeiros entre o Antigo Regime e as monarquias liberais"
+email: palazzo@unb.br
+description: >-
+  Eschwege, Pézérat, Varnhagen
+baseurl: "eschwege-pezerat-varnhagen"
+lang: pt-PT
+url: "https://dmcpatrimonio.github.io"
+twitter_username: p3palazzo
+github_username:  p3palazzo
+
+# Build settings {{{1
+theme: tufte-pandoc-jekyll
+markdown: Pandoc
+pandoc:
+  extensions:
+    - defaults: "_spec/html.yaml"
+    - section-divs
+plugins:
+  - jekyll-coffeescript
+  - jekyll-feed
+  - jekyll-optional-front-matter
+  - jekyll-paginate
+  - jekyll-pandoc
+  - jekyll-relative-links
+  - jekyll-sitemap
+  - jekyll-seo-tag
+sass_dir:
+  - assets/css
+  - _sass
+exclude:
+  - LICENSE
+  - Makefile
+  - README.md
+  - "reveal.js"
+  - "*.docx"
+  - "*.pdf"
+keep_files:
+  - ".git"
+  - "reveal.js"
